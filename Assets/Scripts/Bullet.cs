@@ -32,7 +32,8 @@ public class Bullet : MonoBehaviour {
             }
             for (int i = 0; i < numParticles; i++)
             {
-                Vector3 location = gameObject.transform.position + (gameObject.transform.forward * 2);
+                Vector3 randomVector = new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f));
+                Vector3 location = gameObject.transform.position + (gameObject.transform.forward) + randomVector;
                 GameObject bloodObject = (GameObject)Instantiate(blood, location, gameObject.transform.rotation);
             }
         }

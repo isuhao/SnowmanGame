@@ -10,9 +10,11 @@ public class Snowman : MonoBehaviour {
     float stop = 2.0f;
     Transform myTransform;
 
+    bool dead = false;
+
     bool hasPresent = false;
 
-    public int health = 100;
+    public float health = 100;
 
 	// Use this for initialization
 	void Start () {
@@ -51,15 +53,19 @@ public class Snowman : MonoBehaviour {
 
         if (health <= 0)
         {
-            for (int i = 0; i < gameObject.transform.childCount; i++ )
+            if (!dead)
             {
-                Transform child = gameObject.transform.GetChild(i);
-                child.gameObject.AddComponent<Rigidbody>();
-                Destroy(child.gameObject, 5.0f);
-            }
+                dead = true;
+                for (int i = 0; i < gameObject.transform.childCount; i++)
+                {
+                    Transform child = gameObject.transform.GetChild(i);
+                    child.gameObject.AddComponent<Rigidbody>();
+                    Destroy(child.gameObject, 5.0f);
+                }
 
-            gameObject.transform.DetachChildren();
-            Destroy(gameObject);
+                gameObject.transform.DetachChildren();
+                Destroy(gameObject);
+            }
         }
         else
         {
@@ -104,5 +110,35 @@ public class Snowman : MonoBehaviour {
             Transform child = gameObject.transform.GetChild(i);
             //child.
         }
+    }
+
+    public void Scale()
+    {
+        float randomNumber = NormalNext(0.1f, 0.0f, 2.0f);
+
+        if (randomNumber < 0.5f) randomNumber = 0.5f;
+
+        int rare = Random.Range(1, 50);
+        if (rare == 9) randomNumber = 3.0f;
+
+        gameObject.transform.localScale *= randomNumber;
+        health *= randomNumber;
+        moveSpeed /= randomNumber;
+    }
+
+    public static float NormalNext(float Steps, float minValue, float MaxValue)
+    {
+        int count = 0;
+        float val = minValue;
+
+        if (Steps < 0) return 0;
+
+        while (count * Steps <= MaxValue)
+        {
+            val += Random.Range(0.0f, Steps);
+            count++;
+        }
+
+        return val;
     }
 }

@@ -25,7 +25,8 @@ public class SpawningArea : MonoBehaviour {
             Vector3 rndPosWithin;
             rndPosWithin = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(range * -1, range));
             rndPosWithin = transform.TransformPoint(rndPosWithin * .5f);
-            Instantiate(ObjectToSpawn, rndPosWithin, transform.rotation);
+            GameObject snowman = (GameObject)Instantiate(ObjectToSpawn, rndPosWithin, transform.rotation);
+            snowman.GetComponent<Snowman>().Scale();
         }
 	}
 }
