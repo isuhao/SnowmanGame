@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerScript : MonoBehaviour {
 
     public float speed = 50.0f;
@@ -19,6 +20,7 @@ public class PlayerScript : MonoBehaviour {
         if (Input.GetButtonDown("Fire1"))
         {
             Instantiate(projectile, projectileSpawn.position, gameObject.transform.rotation);
+            GetComponent<AudioSource>().Play();
         }
     }
 	
@@ -28,6 +30,12 @@ public class PlayerScript : MonoBehaviour {
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+
+        if (horizontalInput < 0.3f && horizontalInput > -0.3f)
+            horizontalInput = 0f;
+
+        if (verticalInput < 0.3f && verticalInput > -0.3f)
+            verticalInput = 0f;
 
         Vector3 horizontalDirection = camera.transform.right * horizontalInput;
         Vector3 verticalDirection = camera.transform.forward * verticalInput;

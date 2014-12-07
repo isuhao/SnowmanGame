@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
+
     public GameObject blood;
     public int numParticles = 5;
 
@@ -22,7 +23,6 @@ public class Bullet : MonoBehaviour {
     
     void OnTriggerEnter(Collider other)
     {
-
         if (other.gameObject.tag == "Enemy")
         {
             Snowman snowman = other.GetComponentInParent<Snowman>();
@@ -40,4 +40,6 @@ public class Bullet : MonoBehaviour {
 
         Destroy(gameObject);
     }
+
+    
 }

@@ -3,16 +3,16 @@ using System.Collections;
 
 public class SunScript : MonoBehaviour {
 
-    public float sunSpeed = 1;
+    float dayLength;
 
 	// Use this for initialization
 	void Start () {
-	    
+        dayLength = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().dayLength;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        transform.Rotate(sunSpeed * Time.deltaTime, 0, 0);
+        transform.Rotate(Vector3.right, (360 / dayLength) * Time.deltaTime);
 	}
 }
